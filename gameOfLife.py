@@ -31,10 +31,15 @@ def neighboor_counter(board_object, x_coord, y_coord):
 Classes
 """
 class Board:
-	def __init__(self, width, height, state = []): # Default init to random board
-		self.width = width
-		self.height = height
+	def __init__(self, width = 0, height = 0, state = []): # Default init to random board
 		self.state = state
+
+		if self.state == []:
+			self.width = width
+			self.height = height
+		else:
+			self.height = len(self.state)
+			self.width = len(self.state[0])
 
 		# Build the random board if no arg passed in
 		if self.state == []:
@@ -103,10 +108,12 @@ class Board:
 
 
 """
-Testing
+ Quick Testing
 """
-b = Board(3,3)
-print(b)
-b.__next_state__()
-print(b)
+
+
+"""
+To do:
+- Add catch for passing in an invalid board
+"""
 
