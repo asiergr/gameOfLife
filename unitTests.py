@@ -13,19 +13,21 @@ board1 = 	[
 			]
 board2 = 	[
 			[1, 0, 0],
-			[0, 0, 0],
-			[0, 0, 1]
+			[1, 1, 0],
+			[0, 0, 0]
 			]
 board3 = 	[
-			[0, 0, 0],
-			[0, 0, 1],
-			[0, 0, 0]
+			[1, 1, 1],
+			[1, 1, 1],
+			[1, 1, 1]
 			]
 
 """
 Testing neighboor count
 """
-board = Board(state = board2)
+board = Board(state = board3)
+print(board)
+board.__next_state__()
 print(board)
 board.__next_state__()
 print(board)

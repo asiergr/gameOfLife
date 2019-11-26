@@ -12,19 +12,24 @@ Extensions:
 Imports
 """
 import random as rd
+import time
 
 """
 Helper functions
 """
-def neighboor_counter(board_object, x_coord, y_coord):
+def neighboor_counter(board_object, y_coord, x_coord):
 	neighboor_count = 0
-	try:
-		for i in range(3):
-			for j in range(3):
-				#Use the fact that 1s and 0s are used to represent live/dead
-				neighboor_count += board_object.state[x_coord + i][y_coord + j]
-	except IndexError:
-		pass
+	for i in range(-1, 2):
+		for j in range(-1, 2):
+			# Only positive indexing and avoid the place of the cell itself
+			if y_coord + i >= 0 and x_coord + j >= 0 and (y_coord + i, x_coord + j) != (y_coord, x_coord):
+				try:
+				# Use the fact that 1s and 0s are used to represent live/dead
+					neighboor_count += board_object.state[y_coord + i][x_coord + j]
+				except IndexError:
+					continue
+					
+
 	return neighboor_count
 
 """
@@ -91,26 +96,43 @@ class Board:
 		# Now we calculate for the existing board
 		for y in range(self.height):
 			for x in range(self.width):
-				neighboor_n = neighboor_counter(self, x, y)
-				if neighboor_n < 2 and self.state[x][y] == 1:
-					temp_board[x][y] = 0
-				elif neighboor_n == 2 or neighboor_n == 3 and self.state[x][y] == 1:
-					temp_board[x][y] = 1
-				elif neighboor_n > 3 and self.state[x][y] == 1:
-					temp_board[x][y] = 0
-				elif neighboor_n == 3 and self.state[x][y] == 0:
-					temp_board[x][y] = 1
+				neighboor_n = neighboor_counter(self, y, x)
+
+				if neighboor_n < 2 and self.state[y][x] == 1:
+					temp_board[y][x] = 0
+				elif (neighboor_n == 2 or neighboor_n == 3) and self.state[y][x] == 1:
+					temp_board[y][x] = 1
+				elif neighboor_n > 3 and self.state[y][x] == 1:
+					temp_board[y][x] = 0
+				elif neighboor_n == 3 and self.state[y][x] == 0:
+					temp_board[y][x] = 1
 		# Update the board
 		self.state = temp_board
 
+	def __run__(self):
+		live_count = 1
+
+		while live_count != 0:
+			live_count = 0
+			for row in self.state:
+				for cell in row:
+					live_count += cell
+
+			self.__next_state__()
+			print(self)
+			time.sleep(1)
+		print("Everyone is dead.")
+
 
 
 
 
 """
- Quick Testing
+Running
 """
 
+board = Board(6, 6)
+board.__run__()
 
 """
 To do:
