@@ -31,9 +31,41 @@ class Board:
 			for i in range(self.width):
 				self.state[j].append(rd.randint(0,1))
 
+	def __str__(self):
+		hor_edges = ''
+		for i in range(2*self.width - 1):
+			hor_edges += '-'
+		pretty_rows = hor_edges + '\n'
+		for row in self.state:
+			for n in range(len(row)):
+				if n == 0:
+					if row[n] == 0:
+						pretty_rows += '|0'
+					if row[n] == 1:
+						pretty_rows += '|1'
+				elif n == self.width - 1:
+					if row[n] == 0:
+						pretty_rows += '0|\n'
+					if row[n] == 1:
+						pretty_rows += '1|\n'
+
+				elif row[n] == 0:
+					pretty_rows += '0'
+				elif row[n] == 1:
+					pretty_rows += '1'
+		pretty_rows += hor_edges
+
+		return pretty_rows
+
+	def __repr__(self):
+		return f"Board with {self.height} rows and {self.width} columns"
+
+	
+
+
 """
 Testing
 """
 b = Board(3,3)
-print(b.state)
+print(b)
 
