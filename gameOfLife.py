@@ -73,19 +73,19 @@ class Board:
 			for n in range(len(row)):
 				if n == 0:
 					if row[n] == 0:
-						pretty_rows += '|0'
+						pretty_rows += '| '
 					if row[n] == 1:
-						pretty_rows += '|1'
+						pretty_rows += '|#'
 				elif n == self.width - 1:
 					if row[n] == 0:
-						pretty_rows += '0|\n'
+						pretty_rows += ' |\n'
 					if row[n] == 1:
-						pretty_rows += '1|\n'
+						pretty_rows += '#|\n'
 
 				elif row[n] == 0:
-					pretty_rows += '0'
+					pretty_rows += ' '
 				elif row[n] == 1:
-					pretty_rows += '1'
+					pretty_rows += '#'
 		pretty_rows += hor_edges
 
 		return pretty_rows
@@ -139,7 +139,7 @@ class Board:
 
 
 """
-Running
+Runtime
 """
 print("Welcome to the Game of Life")
 width = input("Enter the width of the board\n")
@@ -147,9 +147,3 @@ height = input("Enter the height of the board\n")
 
 board = Board(width, height)
 board.__run__()
-
-"""
-To do:
-- Add catch for passing in an invalid board
-"""
-
