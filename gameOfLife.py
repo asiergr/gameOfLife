@@ -39,12 +39,23 @@ class Board:
 	def __init__(self, width = 0, height = 0, state = []): # Default init to random board
 		self.state = state
 
+		try:
+			width = int(width)
+			height = int(height)
+		except TypeError:
+			raise Exception("Please enter an integer")
+
 		if self.state == []:
 			self.width = width
 			self.height = height
 		else:
 			self.height = len(self.state)
 			self.width = len(self.state[0])
+
+		for row in self.state:
+			if len(row) != self.width:
+				raise Exception("This array is invalid")
+
 
 		# Build the random board if no arg passed in
 		if self.state == []:
@@ -130,8 +141,11 @@ class Board:
 """
 Running
 """
+print("Welcome to the Game of Life")
+width = input("Enter the width of the board\n")
+height = input("Enter the height of the board\n")
 
-board = Board(6, 6)
+board = Board(width, height)
 board.__run__()
 
 """
